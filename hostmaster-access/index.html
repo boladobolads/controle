@@ -9,6 +9,21 @@
 <div class="grid gap-6 lg:grid-cols-2">
 <form id="property-form" class="space-y-3 rounded-2xl border border-slate-800 bg-slate-900 p-5"><h2 class="font-bold text-lg">Cadastrar imóvel</h2><input id="property-title" required maxlength="120" placeholder="Nome do imóvel" class="w-full rounded-lg bg-slate-950 border border-slate-700 p-3"><input id="property-address" required maxlength="240" placeholder="Endereço" class="w-full rounded-lg bg-slate-950 border border-slate-700 p-3"><button class="rounded-lg bg-cyan-400 px-4 py-3 font-bold text-slate-950">Salvar imóvel</button></form>
 <form id="device-form" class="space-y-3 rounded-2xl border border-slate-800 bg-slate-900 p-5"><h2 class="font-bold text-lg">Cadastrar equipamento</h2><select id="device-property" required class="w-full rounded-lg bg-slate-950 border border-slate-700 p-3"><option value="">Selecione o imóvel</option></select><select id="manufacturer" class="w-full rounded-lg bg-slate-950 border border-slate-700 p-3"><option value="agl_home">AGL Home</option><option value="primebras_rio">Primebras Rio</option></select><input id="device-name" required maxlength="100" placeholder="Ex.: Portão social" class="w-full rounded-lg bg-slate-950 border border-slate-700 p-3"><select id="device-type" class="w-full rounded-lg bg-slate-950 border border-slate-700 p-3"><option value="portao_social">Portão social</option><option value="portao_garagem">Portão garagem</option><option value="porta_principal">Porta principal</option><option value="fechadura">Fechadura</option><option value="outro">Outro</option></select><input id="device-model" maxlength="120" placeholder="Modelo (se souber)" class="w-full rounded-lg bg-slate-950 border border-slate-700 p-3"><button class="rounded-lg bg-cyan-400 px-4 py-3 font-bold text-slate-950">Salvar equipamento</button></form></div>
+<section class="grid gap-6 lg:grid-cols-2">
+<form id="invite-form" class="space-y-3 rounded-2xl border border-cyan-500/30 bg-slate-900 p-5">
+<h2 class="font-bold text-lg">Gerar convite de acesso</h2>
+<p class="text-sm text-slate-400">O convite autoriza somente o equipamento selecionado.</p>
+<input id="guest-name" required maxlength="120" placeholder="Nome do hóspede" class="w-full rounded-lg bg-slate-950 border border-slate-700 p-3">
+<select id="invite-device" required class="w-full rounded-lg bg-slate-950 border border-slate-700 p-3"><option value="">Selecione o equipamento autorizado</option></select>
+<label class="block text-sm text-slate-300">Início da autorização</label>
+<input id="invite-start" type="datetime-local" required class="w-full rounded-lg bg-slate-950 border border-slate-700 p-3">
+<label class="block text-sm text-slate-300">Fim da autorização</label>
+<input id="invite-end" type="datetime-local" required class="w-full rounded-lg bg-slate-950 border border-slate-700 p-3">
+<button class="rounded-lg bg-cyan-400 px-4 py-3 font-bold text-slate-950">Gerar convite</button>
+<p id="invite-msg" class="text-sm text-amber-300"></p>
+</form>
+<section class="rounded-2xl border border-slate-800 bg-slate-900 p-5"><h2 class="font-bold text-lg">Convites emitidos</h2><div id="invites-list" class="mt-4 space-y-3 text-sm text-slate-400">Carregando...</div></section>
+</section>
 <section class="rounded-2xl border border-slate-800 bg-slate-900 p-5"><h2 class="font-bold text-lg">Seus imóveis e equipamentos</h2><div id="inventory" class="mt-4 space-y-3 text-sm text-slate-400">Carregando...</div></section>
 <div class="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 text-sm text-amber-200"><b>Segurança:</b> esta versão é para cadastro e testes. Ela não aciona fechaduras nem portões e não armazena senhas de fabricantes. Links/senhas temporárias e comandos físicos só serão implementados após validação de API/SDK e backend seguro.</div>
 </section></main><script src="./config.js"></script><script src="./access.js"></script></body></html>

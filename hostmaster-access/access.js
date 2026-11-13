@@ -2,7 +2,23 @@
 const cfg=window.HOSTMASTER_ACCESS_CONFIG||window.ACCESS_CONFIG||{}, valid=cfg.SUPABASE_URL&&cfg.SUPABASE_URL.includes('.supabase.co')&&cfg.SUPABASE_ANON_KEY&&cfg.SUPABASE_ANON_KEY.length>20;
 const el=id=>document.getElementById(id), msg=t=>el('auth-msg').textContent=t;
 if(!valid){msg('Configure config.js com as credenciais PUBLICÁVEIS do novo projeto Supabase.');return;}
-const db=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);let props=[],devices=[],invites=[];
+const db=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);
+const inviteToken=new URLSearchParams(location.search).get('invite');
+if(inviteToken){
+ const guest=el('guest'),state=el('guest-state'),details=el('guest-details');
+ el('auth').classList.add('hidden');el('app').classList.add('hidden');guest.classList.remove('hidden');
+ db.rpc('validate_access_invite',{p_token:inviteToken}).then(({data,error})=>{
+  if(error){state.textContent='Não foi possível validar este convite. Tente novamente mais tarde.';return;}
+  const row=Array.isArray(data)?data[0]:data;
+  if(!row){state.textContent='Convite não encontrado ou código inválido.';return;}
+  const labels={valid:'Convite válido: autorização ativa neste momento.',not_started:'Convite válido, mas ainda não está no período de autorização.',expired:'Este convite expirou.',revoked:'Este convite foi cancelado pelo proprietário.'};
+  state.textContent=labels[row.authorization_state]||'Convite sem autorização.';
+  const fields=[['Hóspede',row.guest_name],['Equipamento autorizado',row.device_name],['Fabricante',row.manufacturer==='agl_home'?'AGL Home':'Primebras Rio'],['Início',new Date(row.starts_at).toLocaleString('pt-BR')],['Término',new Date(row.expires_at).toLocaleString('pt-BR')]];
+  details.replaceChildren(...fields.map(([label,value])=>{const p=document.createElement('p');p.textContent=label+': '+value;return p;}));
+ }).catch(()=>{state.textContent='Falha de comunicação ao validar o convite.';});
+ return;
+}
+let props=[],devices=[],invites=[];
 function escape(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function date(v){return new Date(v).toLocaleString('pt-BR');}
 async function load(){

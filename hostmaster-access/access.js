@@ -1,5 +1,5 @@
 (function(){
-const cfg=window.ACCESS_CONFIG||{}, valid=cfg.SUPABASE_URL&&cfg.SUPABASE_URL.includes('.supabase.co')&&cfg.SUPABASE_ANON_KEY&&cfg.SUPABASE_ANON_KEY.length>20;
+const cfg=window.HOSTMASTER_ACCESS_CONFIG||window.ACCESS_CONFIG||{}, valid=cfg.SUPABASE_URL&&cfg.SUPABASE_URL.includes('.supabase.co')&&cfg.SUPABASE_ANON_KEY&&cfg.SUPABASE_ANON_KEY.length>20;
 const el=id=>document.getElementById(id), msg=t=>el('auth-msg').textContent=t;
 if(!valid){msg('Configure config.js com as credenciais PUBLICÁVEIS do novo projeto Supabase.');return;}
 const db=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);let props=[],devices=[];

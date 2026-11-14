@@ -23,14 +23,15 @@
 <input id="guest-name" required maxlength="120" placeholder="Nome do hóspede" class="w-full rounded-lg bg-slate-950 border border-slate-700 p-3">
 <input id="guest-email" type="email" required maxlength="254" placeholder="E-mail que o hóspede usará para entrar" class="w-full rounded-lg bg-slate-950 border border-slate-700 p-3">
 <select id="invite-device" required multiple size="5" class="w-full rounded-lg bg-slate-950 border border-slate-700 p-3"><option value="">Selecione um ou mais equipamentos</option></select><p class="text-xs text-slate-400">Use Ctrl (Windows) ou Cmd (Mac) para selecionar mais de um. Todos devem pertencer ao mesmo imóvel.</p>
-<label class="block text-sm text-slate-300">Início da autorização</label>
-<input id="invite-start" type="datetime-local" required class="w-full rounded-lg bg-slate-950 border border-slate-700 p-3">
-<label class="block text-sm text-slate-300">Fim da autorização</label>
-<input id="invite-end" type="datetime-local" required class="w-full rounded-lg bg-slate-950 border border-slate-700 p-3">
+<div class="grid gap-3 sm:grid-cols-2">
+<div class="space-y-2"><label for="invite-start-date" class="block text-sm text-slate-300">Dia de início</label><input id="invite-start-date" type="date" required lang="pt-BR" class="w-full rounded-lg bg-slate-950 border border-slate-700 p-3"><label for="invite-start-time" class="block text-sm text-slate-300">Horário de início</label><input id="invite-start-time" type="time" required value="14:00" class="w-full rounded-lg bg-slate-950 border border-slate-700 p-3"></div>
+<div class="space-y-2"><label for="invite-end-date" class="block text-sm text-slate-300">Dia de término</label><input id="invite-end-date" type="date" required lang="pt-BR" class="w-full rounded-lg bg-slate-950 border border-slate-700 p-3"><label for="invite-end-time" class="block text-sm text-slate-300">Horário de término</label><input id="invite-end-time" type="time" required value="11:00" class="w-full rounded-lg bg-slate-950 border border-slate-700 p-3"></div>
+</div>
+<p class="text-xs text-slate-400">Clique no campo de data para abrir o calendário e escolher dia, mês e ano.</p>
 <button class="rounded-lg bg-cyan-400 px-4 py-3 font-bold text-slate-950">Gerar convite</button>
 <p id="invite-msg" class="text-sm text-amber-300"></p>
 </form>
-<section class="rounded-2xl border border-slate-800 bg-slate-900 p-5"><h2 class="font-bold text-lg">Convites emitidos</h2><div id="invites-list" class="mt-4 space-y-3 text-sm text-slate-400">Carregando...</div></section>
+<section class="rounded-2xl border border-slate-800 bg-slate-900 p-5"><div class="flex flex-wrap items-center justify-between gap-3"><h2 class="font-bold text-lg">Convites emitidos</h2><button id="delete-old-invites" type="button" class="rounded-lg border border-red-500/50 px-3 py-2 text-xs text-red-300">Apagar convites antigos</button></div><p id="delete-old-msg" class="mt-2 text-xs text-slate-400">Apaga convites cancelados ou vencidos há mais de 30 dias. Convites ativos são preservados.</p><div id="invites-list" class="mt-4 space-y-3 text-sm text-slate-400">Carregando...</div></section>
 </section>
 <section class="rounded-2xl border border-violet-500/30 bg-slate-900 p-5">
 <h2 class="font-bold text-lg">Central Android por casa</h2>

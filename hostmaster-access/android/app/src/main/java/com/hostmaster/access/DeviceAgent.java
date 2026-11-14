@@ -85,7 +85,6 @@ public final class DeviceAgent {
         connection.setRequestMethod("POST");
         connection.setDoOutput(true);
         connection.setRequestProperty("apikey", config.getString("key"));
-        connection.setRequestProperty("Authorization", "Bearer " + config.getString("key"));
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Accept", "application/json");
         byte[] payload = body.toString().getBytes(StandardCharsets.UTF_8);

@@ -1,1 +1,2 @@
 Trigger Android guest APK build after all project files are committed.
+Rebuild guest APK for official domain https://hostmaster-access.pages.dev/.

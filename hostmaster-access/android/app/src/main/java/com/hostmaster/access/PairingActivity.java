@@ -102,7 +102,7 @@ public class PairingActivity extends Activity {
                 JSONObject body = new JSONObject();
                 body.put("p_pairing_code", code);
                 body.put("p_node_name", "HostMaster Android");
-                body.put("p_app_version", "1.1.0");
+                body.put("p_app_version", "1.2.0");
                 JSONArray rows = DeviceAgent.rpc("claim_android_pairing", body);
                 if (rows.length() == 0) throw new Exception("Código inválido, expirado ou já utilizado.");
                 JSONObject row = rows.getJSONObject(0);

@@ -16,7 +16,7 @@ import android.view.Gravity;
 public class MainActivity extends Activity {
     private WebView webView;
     private TextView nodeStatus;
-    private static final String APP_URL = "https://rococo-daffodil-0c9d6a.netlify.app/";
+    private static final String APP_URL = "https://hostmaster-access.pages.dev/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

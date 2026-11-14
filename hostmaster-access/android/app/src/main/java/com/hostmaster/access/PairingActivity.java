@@ -108,14 +108,18 @@ public class PairingActivity extends Activity {
                 JSONObject row = rows.getJSONObject(0);
                 DeviceAgent.savePairing(this, row.getString("node_id"), row.getString("node_secret"),
                         row.optString("property_title", "Casa vinculada"));
-                boolean online = DeviceAgent.heartbeat(this);
-                PeriodicWorkRequest work = new PeriodicWorkRequest.Builder(
-                        HeartbeatWorker.class, 15, TimeUnit.MINUTES).build();
-                WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-                        "hostmaster-android-heartbeat", ExistingPeriodicWorkPolicy.KEEP, work);
+                boolean online = false;
+                try { online = DeviceAgent.heartbeat(this); } catch (Exception ignored) {}
+                try {
+                    PeriodicWorkRequest work = new PeriodicWorkRequest.Builder(
+                            HeartbeatWorker.class, 15, TimeUnit.MINUTES).build();
+                    WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                            "hostmaster-android-heartbeat", ExistingPeriodicWorkPolicy.KEEP, work);
+                } catch (Exception ignored) {}
+                final boolean onlineNow = online;
                 runOnUiThread(() -> {
                     status.setText("Central vinculada à casa: " + DeviceAgent.getPropertyTitle(this)
-                            + "\nComunicação com o HostMaster: " + (online ? "online" : "aguardando primeiro contato")
+                            + "\nComunicação com o HostMaster: " + (onlineNow ? "online" : "aguardando primeiro contato")
                             + "\nA integração física Primebras ainda será habilitada após a confirmação da API oficial.");
                     codeInput.setVisibility(android.view.View.GONE);
                     connectButton.setVisibility(android.view.View.GONE);

@@ -26,10 +26,10 @@ import android.security.keystore.KeyProperties;
 import java.security.KeyStore;
 
 public final class DeviceAgent {
-    public static final String APP_URL = "https://rococo-daffodil-0c9d6a.netlify.app/";
+    public static final String APP_URL = "https://hostmaster-access.pages.dev/";
     private static final String PREFS = "hostmaster_android_node";
     private static final String KEY_ALIAS = "hostmaster_android_node_key";
-    private static final String APP_VERSION = "1.1.0";
+    private static final String APP_VERSION = "1.2.0";
 
     private DeviceAgent() {}
 

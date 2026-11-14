@@ -140,6 +140,7 @@ as $$
   order by d.created_at, d.device_name;
 $$;
 
+revoke all on function public.create_access_invite_multi(uuid[], text, timestamptz, timestamptz) from public, anon, authenticated;
 revoke all on function public.create_access_invite_multi(uuid[], text, text, timestamptz, timestamptz) from public, anon;
 grant execute on function public.create_access_invite_multi(uuid[], text, text, timestamptz, timestamptz) to authenticated;
 revoke all on function public.validate_access_invite_devices(text) from public, anon;

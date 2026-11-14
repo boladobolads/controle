@@ -254,3 +254,38 @@ revoke all on function public.create_access_invite_multi(uuid[], text, text, tim
 grant execute on function public.create_access_invite_multi(uuid[], text, text, timestamptz, timestamptz) to authenticated;
 revoke all on function public.validate_access_invite_devices(text) from public, anon;
 grant execute on function public.validate_access_invite_devices(text) to authenticated;
+
+-- Apaga somente convites cancelados ou vencidos há mais de 30 dias,
+-- sempre limitando a exclusão aos imóveis do proprietário autenticado.
+create or replace function public.delete_old_access_invites()
+returns integer
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_deleted integer := 0;
+begin
+  if auth.uid() is null then
+    raise exception 'É necessário entrar na conta do proprietário.';
+  end if;
+
+  with removed as (
+    delete from public.access_invites i
+    using public.access_properties p
+    where p.id = i.property_id
+      and p.owner_id = auth.uid()
+      and (
+        (i.status = 'revoked' and i.created_at < now() - interval '30 days')
+        or i.expires_at < now() - interval '30 days'
+      )
+    returning i.id
+  )
+  select count(*)::integer into v_deleted from removed;
+
+  return v_deleted;
+end;
+$$;
+
+revoke all on function public.delete_old_access_invites() from public, anon;
+grant execute on function public.delete_old_access_invites() to authenticated;
